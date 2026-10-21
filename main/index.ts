@@ -584,14 +584,14 @@ async function showRuntimeStuckDialog(reason: string): Promise<void> {
       `URL: ${lastWindowLoadFailure.validatedURL ?? `http://localhost:${getServerPort()}`}`,
     );
   }
-  detailLines.push(`Platform: ${process.platform} | Flo: ${app.getVersion()}`);
+  detailLines.push(`Platform: ${process.platform} | Mash POS: ${app.getVersion()}`);
 
   const { response } = await dialog.showMessageBox({
     type: 'error',
-    title: 'Flo needs to restart',
+    title: 'Mash POS needs to restart',
     message:
-      'Flo could not recover automatically. This usually means another program ' +
-      '(antivirus, firewall, or a leftover Flo process) is blocking its local server.\n\n' +
+      'Mash POS could not recover automatically. This usually means another program ' +
+      '(antivirus, firewall, or a leftover Mash POS process) is blocking its local server.\n\n' +
       'Please quit and reopen the app. If this keeps happening, sending a diagnostic ' +
       'report helps us fix it — it contains no order, customer, or business data.',
     detail: detailLines.join('\n'),
@@ -610,7 +610,7 @@ async function showRuntimeStuckDialog(reason: string): Promise<void> {
 
   await dialog.showMessageBox({
     type: 'info',
-    title: 'Flo',
+    title: 'Mash POS',
     message:
       'Diagnostic captured. If sharing is enabled and this device is online, it will be sent automatically.',
     buttons: ['Quit'],
@@ -1085,7 +1085,7 @@ function createTray(): void {
         },
       ]);
 
-      tray.setToolTip('Flo Cafe');
+      tray.setToolTip('Mash POS');
       tray.setContextMenu(linuxMenu);
       // Single-click also shows the window on Linux (no double-click standard).
       tray.on('click', () => {
@@ -1112,7 +1112,7 @@ function createTray(): void {
 
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Open Flo',
+        label: 'Open Mash POS',
         click: () => {
           showMainWindow();
         },
@@ -1127,7 +1127,7 @@ function createTray(): void {
       },
     ]);
 
-    tray.setToolTip('Flo');
+    tray.setToolTip('Mash POS');
     tray.setContextMenu(contextMenu);
     tray.on('double-click', () => {
       showMainWindow();
@@ -1212,9 +1212,9 @@ function createMenu(): void {
     ...(process.platform === 'darwin'
       ? [
           {
-            label: app.getName(),
+            label: 'Mash POS',
             submenu: [
-              { label: `About ${app.getName()}`, click: () => showAbout() },
+              { label: 'About Mash POS', click: () => showAbout() },
               { type: 'separator' as const },
               { role: 'services' as const },
               { type: 'separator' as const },
@@ -1374,7 +1374,7 @@ function createMenu(): void {
       label: 'Window',
       submenu: [
         {
-          label: 'Flo Cafe',
+          label: 'Mash POS',
           click: () => {
             if (showMainWindow()) mainWindow?.focus();
           },
@@ -1390,7 +1390,7 @@ function createMenu(): void {
       label: 'Help',
       submenu: [
         ...(process.platform !== 'darwin'
-          ? [{ label: 'About Flo', click: () => showAbout() }]
+          ? [{ label: 'About Mash POS', click: () => showAbout() }]
           : []),
         ...(isStoreBuild ? [] : [{ label: 'Check for Updates', click: () => checkForUpdates() }]),
         {
@@ -1429,8 +1429,8 @@ function showAbout(): void {
   const serverAppPort = getServerAppPort();
   dialog.showMessageBox({
     type: 'info',
-    title: 'About Flo',
-    message: 'Flo Cafe',
+    title: 'About Mash POS',
+    message: 'Mash POS',
     detail: [
       `Version: ${app.getVersion()}`,
       `Electron: ${process.versions.electron}`,
@@ -1588,7 +1588,7 @@ async function initialize(): Promise<void> {
       }
       return;
     }
-    dialog.showErrorBox('Initialization Error', `Failed to start Flo: ${error}`);
+    dialog.showErrorBox('Initialization Error', `Failed to start Mash POS: ${error}`);
 
     // Capture only a safe classification; exception text can contain business data.
     try {
